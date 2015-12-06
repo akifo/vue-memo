@@ -1,0 +1,12 @@
+{
+  "firebase": "vue-memo",
+  "public": "public",
+  "ignore": [
+    "firebase.json",
+    "**/.*",
+    "gulpfile.js",
+    "package.json",
+    "**/scss/**",
+    "**/node_modules/**"
+  ]
+}
