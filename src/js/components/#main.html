@@ -1,0 +1,46 @@
+<main id="main" class="row">
+  <div class="addBox col s12 m3 z-depth-1">
+    <form id="form" v-on:submit.prevent="addMemo" class="row">
+      <div class="input-field col s12">
+        <input id="title" type="text" v-model="newMemo.title">
+        <label for="title">title</label>
+      </div>
+      <div class="input-field col s12">
+        <textarea id="textarea" class="materialize-textarea" v-model="newMemo.body"></textarea>
+        <label for="textarea">body</label>
+      </div>
+      <div class="input-field col s12 right-align">
+        <input type="submit" class="waves-effect waves-light btn" value="Add Memo">
+      </div>
+    </form>
+  </div>
+
+  <div class="mainBox col s12 m9">
+    <ul class="memoList collection">
+      <li v-for="memo in memos | filterBy searchText" transition="expand" class="memoItem collection-item">
+        <div class="memoHead" :class="{editing: editing(memo, 'title')}">
+          <span class="memoTitle" @dblclick="editMemo(memo, 'title')">{{memo.title}}</span>
+          <input class="edit" type="text"
+            v-model="memo.title"
+            v-memo-focus="editing(memo, 'title')"
+            @blur="doneEdit(memo, 'title')"
+            @keyup.tab="doneEdit(memo, 'title')"
+            @keyup.esc="cancelEdit(memo)">
+          <span class="memoRemoveBtn" @click="removeMemo(memo)"><i class="fa fa-trash"></i></span>
+        </div>
+        <div class="memoMain" :class="{editing: editing(memo, 'body')}">
+          <span class="memoBody" @dblclick="editMemo(memo, 'body')">{{memo.body}}</span>
+          <textarea class="edit"
+            v-model="memo.body"
+            v-memo-focus="editing(memo, 'body')"
+            v-memo-autosize="editing(memo, 'body')"
+            @blur="doneEdit(memo, 'body')"
+            @keyup.tab="doneEdit(memo, 'body')"
+            @keyup.esc="cancelEdit(memo)"
+          ></textarea>
+          <span class="memoModified">{{memo.modified}}</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</main>
