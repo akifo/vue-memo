@@ -9,29 +9,44 @@
 	<meta content="for memo" name="description">
 	<meta content='vue.js, webpack, gulp, firebase, ' name='keywords'>
 
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
   <link rel="stylesheet" href="css/style.css">
 
 </head>
 <body>
 
   <div id="app">
-    <ul>
-      <li class="user" v-for="user in users" transition>
-        <span>{{user.name}} - {{user.email}}</span>
-        <button v-on:click="removeUser(user)">X</button>
-      </li>
-    </ul>
-    <form id="form" v-on:submit.prevent="addUser">
-      <input v-model="newUser.name">
-      <input v-model="newUser.email">
-      <input type="submit" value="Add User">
-    </form>
-    <ul class="errors">
-      <li v-show="!validation.name">Name cannot be empty.</li>
-      <li v-show="!validation.email">Please provide a valid email address.</li>
-    </ul>
+    <vue-header
+      :search-text.sync="searchText"
+      :current-view.sync="currentView"
+      :facebook-user-info.sync="facebookUserInfo"
+    ></vue-header>
+
+    <vue-content
+      :search-text="searchText"
+      :current-view="currentView"
+      :facebook-user-info="facebookUserInfo"
+    ></vue-content>
+
+    <!-- <component
+      :is="currentView"
+      :search-text="searchText"
+      :facebook-user-info="facebookUserInfo"
+      keep-alive
+    ></component> -->
+
   </div>
-  
-  <script src="js/bundle.js"></script>
+
+  <footer id="footer">
+    <p class="copyright">
+      © webreak.jp All Rights Reserved.
+    </p>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+  <script src="js/app.js"></script>
+
 </body>
 </html>
