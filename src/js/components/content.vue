@@ -4,7 +4,6 @@
 <template>
 
   <main id="main" class="row">
-
     <div class="addBox col s12 m3 z-depth-1">
       <form id="form" v-on:submit.prevent="addMemo" class="row">
         <div class="input-field col s12">
@@ -23,7 +22,7 @@
 
     <div class="mainBox col s12 m9">
       <ul class="memoList collection">
-        <li v-for="memo in memos | filterBy searchText" transition="expand" class="memoItem collection-item">
+        <li v-for="memo in memos | filterBy searchText | orderBy 'modified' -1" transition="expand" class="memoItem collection-item">
           <div class="memoHead" :class="{editing: editing(memo, 'title')}">
             <span class="memoTitle" @dblclick="editMemo(memo, 'title')">{{memo.title}}</span>
             <input class="edit" type="text"
@@ -49,21 +48,147 @@
         </li>
       </ul>
     </div>
-
-
   </main>
 
 </template>
 
 <script>
 
+import localStore from '../stores/localStore'
+import firebaseStore from '../stores/firebaseStore'
+import ActionCreator from '../actioncreator'
+import Vue from 'vue'
+import autosize from 'autosize'
+import moment from 'moment'
+
 export default {
 
-  mixins: [require('./../mixins/event.js')],
+  props: {
+    searchText: {
+      type: String,
+      required: true,
+    },
+    currentView: {
+      type: String,
+      required: true,
+    },
+    facebookUserInfo: {
+      type: Object,
+      required: false
+    }
+  },
 
-  replace: true,
+  data () {
+    return {
+      newMemo: {
+        title: '',
+        body: '',
+        modified: ''
+      },
+      memos: [],
+      beforeEditCache: '',
+      editedMemo: '',
+      editedKey: '',
+    }
+  }, // data
 
-  inherit: true,
+  watch: {
+    'currentView': function (val, oldVal) {
+      this.init()
+    }
+  }, // watch
+
+  created () {
+    this.init()
+  }, // created
+
+  methods: {
+
+    init() {
+      ActionCreator.setState(this.currentView)
+      switch (this.currentView) {
+        case 'anonymous':
+          localStore.on('memo-updated', this.updated)
+          ActionCreator.exe('getStrage')
+          break;
+        case 'facebook':
+          firebaseStore.on('memo-updated', this.updated)
+          ActionCreator.exe('init', this.facebookUserInfo.uid)
+          break;
+        default:
+          localStore.removeListener('memo-updated', this.updated)
+          firebaseStore.removeListener('memo-updated', this.updated)
+          break;
+      }
+    },
+
+    updated () {
+      this.memos = ActionCreator.exe('getAllMemos')
+      this.newMemo.title = ''
+      this.newMemo.body = ''
+      this.newMemo.modified = ''
+    },
+
+    addMemo () {
+      var title = this.newMemo.title && this.newMemo.title.trim()
+      var body = this.newMemo.body && this.newMemo.body.trim()
+      if (!title || !body) return
+      ActionCreator.exe('addMemo', {
+        title: title,
+        body: body,
+        modified: moment().format('YYYY.MM.DD HH:mm')
+      })
+    }, // addMemo
+
+    removeMemo (memo) {
+      ActionCreator.exe('removeMemo', memo)
+    }, // removeMemo
+
+    doneEdit (memo, key) {
+      if (!this.editedMemo) return
+      this.editedMemo = null
+      this.editedKey = null
+      memo[key] = memo[key].trim()
+      if (!memo[key]) this.cancelEdit(memo)
+      ActionCreator.exe('doneEdit', memo , key, this.memos)
+    }, // doneEdit
+
+    editMemo (memo, key) {
+      this.beforeEditCache = memo[key]
+      this.editedMemo = memo
+      this.editedKey = key
+    }, // editMemo
+
+    cancelEdit (memo) {
+      memo[this.editedKey] = this.beforeEditCache
+      this.editedMemo = null
+      this.editedKey = null
+    }, // cancelEdit
+
+    editing (memo, key) {
+      return memo == this.editedMemo && key == this.editedKey
+    }, // editing
+
+  }, // methods
+
+  directives: {
+		'memo-focus' (value) {
+			if (!value) return
+			var el = this.el
+			Vue.nextTick( () => {
+				el.focus()
+			})
+		},
+    'memo-autosize': {
+      bind () {
+        var el = this.el
+        Vue.nextTick( () => {
+          autosize(el)
+          $(el).addClass('autosized')
+        })
+      }
+    }
+	} // directives
 
 }
 
@@ -76,10 +201,14 @@ export default {
   min-height 100vh
   margin-bottom 0
   background-color #eee
+  z-index 1
 
   .addBox
     padding-top 30px
     background-color #fff
+
+    .btn
+      background-color #3b5998
 
   .mainBox
     min-height 100vh
@@ -97,8 +226,8 @@ export default {
 
         .memoHead
           display flex
-          border-bottom: 1px solid #ddd;
-          padding: 6px 10px;
+          border-bottom: 1px solid #ddd
+          padding: 6px 10px
           margin: 0
 
           .memoTitle

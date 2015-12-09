@@ -25,6 +25,7 @@
 
 <script>
 
+var Firebase = require("firebase")
 var Vue = require('vue')
 var ref
 
@@ -65,7 +66,7 @@ export default {
 
     var self = this
 
-    this.currentView = 'loader'
+    // this.currentView = 'loader'
 
     ref.onAuth(function(authData) {
       if (authData) {
@@ -85,7 +86,7 @@ export default {
       }
     })
 
-  }, //created
+  }, //ready
 
   methods: {
 

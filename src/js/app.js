@@ -1,5 +1,4 @@
 // ログインしている場合は firebase へ保存
-
 // ログインしていない場合は strage へ保存
 
 var Vue = require('vue')
@@ -14,8 +13,7 @@ var app = new Vue({
 
   components: {
     'vue-header': require('./components/header.vue'),
-    'anonymous': require('./components/anonymous.vue'),
-    'facebook': require('./components/facebook.vue'),
+    'vue-content': require('./components/content.vue'),
     'loader': require('./components/loader.vue'),
   },
 
@@ -23,9 +21,9 @@ var app = new Vue({
     currentView: '',
     searchText: '',
     facebookUserInfo: {
-      key: ''
+      uid: ''
     },
-  },
+  }
 
 
 })

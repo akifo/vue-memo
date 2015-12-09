@@ -23,12 +23,18 @@
       :facebook-user-info.sync="facebookUserInfo"
     ></vue-header>
 
-    <component
+    <vue-content
+      :search-text="searchText"
+      :current-view="currentView"
+      :facebook-user-info="facebookUserInfo"
+    ></vue-content>
+
+    <!-- <component
       :is="currentView"
       :search-text="searchText"
       :facebook-user-info="facebookUserInfo"
       keep-alive
-    ></component>
+    ></component> -->
 
   </div>
 

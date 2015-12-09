@@ -29,7 +29,12 @@ module.exports = {
       loaders: [
         { test: /\.vue$/, loader: 'vue' },
         { test: /\.html$/, loader: 'html-loader' },
+        { test: /\.js$/, exclude: /node_modules|vue\/dist|vue-router\/|vue-loader\/|vue-hot-reload-api\//, loader: 'babel' }
       ]
+    },
+    babel: {
+      presets: ['es2015'],
+      plugins: ['transform-runtime']
     }
   }
 };
