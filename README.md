@@ -3,7 +3,7 @@
 ``` bash
 npm install
 # build:
-webpack
+glup
 ```
 
 ## Demo
