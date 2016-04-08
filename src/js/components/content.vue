@@ -267,7 +267,7 @@ export default {
             line-height: 1.5
             font-size .8rem
             color #666
-            white-space: pre
+            white-space: pre-line
             display block
 
           .memoModified
