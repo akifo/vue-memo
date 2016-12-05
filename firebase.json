@@ -1,12 +1,16 @@
 {
   "firebase": "vue-memo",
-  "public": "public",
-  "ignore": [
-    "firebase.json",
-    "**/.*",
-    "gulpfile.js",
-    "package.json",
-    "**/scss/**",
-    "**/node_modules/**"
-  ]
+  "database": {
+    "rules": "database-rules.json"
+  },
+  "hosting": {
+    "public": "dist",
+    "ignore": [
+      "firebase.json",
+      "database-rules.json",
+      "**/.*",
+      "package.json",
+      "**/node_modules/**"
+    ]
+  }
 }

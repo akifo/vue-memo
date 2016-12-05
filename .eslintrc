@@ -1,0 +1,16 @@
+{
+  "root": true,
+  "parser": "babel-eslint",
+  "extends": "vue",
+  "plugins": ["flow-vars"],
+  "globals": {
+    "$": true,
+    "_App": true,
+    "Env": true,
+    "Materialize": true
+  },
+  "rules": {
+    "flow-vars/define-flow-type": 1,
+    "flow-vars/use-flow-type": 1
+  }
+}

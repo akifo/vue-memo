@@ -1,0 +1,59 @@
+{
+  "rules": {
+    ".read": true,
+    "users": {
+      "$uid": {
+        ".write": "auth !== null && auth.uid === $uid",
+        "name": {
+          ".validate": "newData.isString() && 2 <= newData.val().length && newData.val().length <= 100"
+        }
+      }
+    },
+    "memos": {
+      "$uid": {
+        ".write": "auth !== null && auth.uid === $uid",
+        "$mid": {
+          "title": {
+            ".validate": "newData.isString() && newData.val().length <= 200"
+          },
+          "body": {
+            ".validate": "newData.isString() && newData.val().length <= 4000"
+          },
+          "created": {
+            ".validate": "newData.isNumber() && newData.val() < now + 5000"
+          },
+          "modified": {
+            ".validate": "newData.isNumber() && newData.val() < now + 5000"
+          }
+        },
+        ".indexOn": ["created"]
+      }
+    },
+    "publicMemos": {
+      "$mid": {
+        ".write": "root.child('memos/' + auth.uid ).hasChild($mid)",
+        "title": {
+          ".validate": "newData.isString() && newData.val().length <= 200"
+        },
+        "body": {
+          ".validate": "newData.isString() && newData.val().length <= 4000"
+        },
+        "created": {
+          ".validate": "newData.isNumber() && newData.val() < now + 5000"
+        },
+        "modified": {
+          ".validate": "newData.isNumber() && newData.val() < now + 5000"
+        },
+        "author": {
+          "uid": {
+            ".validate": "newData.val() == auth.uid"
+          },
+          "name": {
+            ".validate": "newData.isString() && 2 <= newData.val().length && newData.val().length <= 100"
+          }
+        }
+      },
+      ".indexOn": ["created"]
+    }
+  }
+}

@@ -1,0 +1,12 @@
+const Env = {
+	firebase: {
+	  apiKey: "",
+	  authDomain: "",
+	  databaseURL: "",
+	  storageBucket: "",
+	  messagingSenderId: ""
+	}
+}
+
+export default Env
+global.Env = Env
