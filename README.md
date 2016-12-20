@@ -1,4 +1,4 @@
-## Dependency
+## Dependencies
 
 - Vue.js(>2.x.)
 - vue-router(>2.x.)
@@ -21,7 +21,7 @@ I will wait for Pull Request.
 
 1. Create Firebase Project
 2. To enable Google Authentication Sign-In
-3. Entry Envairoment Variables
+3. Entry Environment Variables
 
 ``` bash
 # create settings.js
