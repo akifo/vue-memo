@@ -23,7 +23,7 @@ I will wait for Pull Request.
 2. To enable Google Authentication Sign-In
 3. Entry Envairoment Variables
 
-```
+``` bash
 # create settings.js
 cp settings.js.org settings.js
 # paste from Firebase config
