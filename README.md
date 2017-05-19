@@ -39,7 +39,14 @@ npm install
 npm run dev
 # build dist files:
 npm run build
-# deploy to firebase:
+```
+
+## Deploy to Firebase
+
+```bash
+firebase login
+firebase use --add
+# select your project, and then...
 npm run deploy
 ```
 
