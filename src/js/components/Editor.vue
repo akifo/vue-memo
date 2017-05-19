@@ -9,7 +9,7 @@
           <a class="waves-effect waves-light btn" :class="{ active: !previewMode }" @click="switchMode(false)">Write</a>
           <a class="waves-effect waves-light btn" :class="{ active: previewMode }" @click="switchMode(true)">Preview</a>
         </div>
-        <textarea v-show="!previewMode" id="textareaBody" :value="memo.body" placeholder="markedown" @input="update" required></textarea>
+        <textarea v-show="!previewMode" id="textareaBody" :value="memo.body" placeholder="markdown" @input="update" required></textarea>
         <div v-show="previewMode" v-html="compiledMarkdown" class="preview"></div>
       </div>
       <div class="right">
