@@ -1,0 +1,7 @@
+{
+  "presets": ["env"],
+  "plugins": [
+    ["transform-runtime", { "polyfill": true }],
+    "transform-object-rest-spread"
+  ]
+}
