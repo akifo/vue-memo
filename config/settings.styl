@@ -1,0 +1,84 @@
+/* # width
+---------------------------------------------------------------------------- */
+$gutter-width = 14px
+
+$screen-xs = 450px
+$screen-s = 600px
+$screen-m = 992px
+$screen-l = 1200px
+$screen-xl = 1500px
+
+/* @media
+
+  default size => s
+
+  @media (max-width $screen-xs)
+  @media (min-width $screen-m)
+  @media (min-width $screen-l)
+  @media (min-width $screen-xl)
+
+*/
+
+
+/* # color
+---------------------------------------------------------------------------- */
+$primary-color = #6dcc8a
+$primary-color-light = lighten($primary-color, 15%)
+$primary-color-dark = darken($primary-color, 15%)
+
+$font-color-black = rgba(0,0,0,0.87)
+$font-color-black-trans = rgba(0,0,0,0.54)
+$font-color-white = #fff
+$font-color-white-trans = rgba(255,255,255,.7)
+
+$bg-color-1 = #fff
+$bg-color-2 = #fafafa
+$bg-color-3 = #f5f5f5
+$bg-color-4 = #eceff1
+
+
+$border-color = rgba(0,0,0,0.1)
+
+/* # z-depth
+---------------------------------------------------------------------------- */
+
+// .z-depth-3
+//   box-shadow:
+//     0 1px 3px 0 rgba(0,0,0,0.2),
+//     0 1px 1px 0 rgba(0,0,0,0.14),
+//     0 2px 1px -1px rgba(0,0,0,0.12)
+
+// .z-depth-4
+//   box-shadow:
+//     0 2px 5px 0 rgba(0,0,0,0.26)
+
+.z-depth-1
+  box-shadow:
+    0 2px 2px 0 rgba(0,0,0,0.14),
+    0 3px 1px -2px rgba(0,0,0,0.12),
+    0 1px 5px 0 rgba(0,0,0,0.2)
+
+.z-depth-6
+  box-shadow:
+    0 3px 4px 0 rgba(0,0,0,0.14),
+    0 3px 3px -2px rgba(0,0,0,0.12),
+    0 1px 8px 0 rgba(0,0,0,0.2)
+
+/* # extended class
+---------------------------------------------------------------------------- */
+.container
+  padding: $gutter-width
+  @media (max-width $screen-xs)
+    padding: $gutter-width / 2
+  @media (min-width $screen-m)
+    padding: $gutter-width * 2
+  @media (min-width $screen-l)
+    padding: $gutter-width * 3
+  @media (min-width $screen-xl)
+    padding: $gutter-width * 4
+
+.clearfix
+  &:after
+    content: ""
+    display: block
+    clear: both
