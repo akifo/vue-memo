@@ -12,10 +12,10 @@
 - babel-presett-stage-2
 
 ## Introduction
-Vue-memo is a personal project created to deepen the understanding of Vue.js.
+Vue-memo is a personal project created to deepen the understanding of Vue.js.  
 I will wait for Pull Request.
 
-![App Screen Shop](https://github.com/akifo/vue-memo/raw/dev/docs/screen-shot.jpg)
+![App Screen Shop](https://github.com/akifo/vue-memo/raw/next/docs/screen-shot.gif)
 
 ## Before Start
 
@@ -30,7 +30,7 @@ cp settings.js.org settings.js
 vim settings.js
 ```
 
-## Development Setup
+## Development
 
 ``` bash
 # install deps:
@@ -39,6 +39,10 @@ npm install
 npm run dev
 # build dist files:
 npm run build
+# eslint
+npm run lint
+# test
+npm test
 ```
 
 ## Deploy to Firebase
