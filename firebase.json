@@ -8,6 +8,11 @@
       "firebase.json",
       "database-rules.json",
       "**/.*",
+      "config/**",
+      "build/**",
+      "docs/**",
+      "patch/**",
+      "static/**",
       "package.json",
       "**/node_modules/**"
     ]

@@ -45,6 +45,11 @@ npm test
 ## Deploy
 
 ```bash
+# If you haven't firebase-tools 
+npm install -g firebase-tools
+```
+
+```bash
 # build to dist files:
 npm run build
 ## firebase deploy
@@ -56,7 +61,8 @@ firebase deploy
 
 ## Demo
 
-[demo site](https://vue-memo.firebaseapp.com/)
+- [demo site(prod)](https://vue-memo.firebaseapp.com/)
+- [demo site(dev)](https://vue-memo-dev.firebaseapp.com/#/)
 
 ## Special Thanks!!
 

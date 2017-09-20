@@ -57,7 +57,7 @@
               ".write": "auth !== null && auth.uid === $uid",
               ".validate": "newData.isBoolean()"
             }
-          },
+          }
         }
       },
       ".indexOn": ["created", "memoName", "authorID", "authorID_memoName", "starCount"]
