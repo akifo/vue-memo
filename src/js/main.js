@@ -1,28 +1,33 @@
 import 'babel-polyfill'
-import './../../settings'
 import Vue from 'vue'
-import App from './App'
-import { sync } from 'vuex-router-sync'
-import store from './vuex'
-import router from './router'
-import Firebase from './api/firebase'
-import moment from 'moment'
+import Element from 'element-ui'
+import App from '@/App'
+import store from '@/vuex'
+import router from '@/router'
+import * as filters from '@/filters'
+import 'font-awesome/css/font-awesome.css'
+import 'github-markdown-css'
+import 'element-ui/lib/theme-default/index.css'
+import '@@/css/base.styl'
+import '@@/css/transitions.styl'
+import firebaseRejectMixin from '@/mixins/firebase-reject'
 
 // for debugging
 if (process.env.NODE_ENV !== 'production') Vue.config.debug = true
 
-sync(store, router)
-Firebase.initFirebase()
+Vue.use(Element)
 
-Vue.filter('formatDate', function (value, format) {
-  return moment(value).format('YYYY.MM.DD hh:mm:ss')
+// register global utility filters.
+Object.keys(filters).forEach(key => {
+  Vue.filter(key, filters[key])
 })
 
-const app = new Vue({
+const Vm = new Vue({
   router,
   store,
   el: '#app',
+  mixins: [firebaseRejectMixin],
   render: h => h(App)
 })
 
-global._App = app
+export default Vm

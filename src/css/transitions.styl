@@ -1,0 +1,30 @@
+@import '../../config/settings.styl'
+
+// slide-up
+.slide-up-enter-active
+.slide-up-leave-active
+  transition: all .4s linear
+
+.slide-up-enter
+.slide-up-leave-to
+  opacity: 0
+
+.slide-up-enter
+  transform: translateY(20px)
+
+.slide-up-leave-to
+  transform: translateY(-20px)
+
+// bounce
+.bounce-enter-active
+  animation: bounce-in .3s
+.bounce-leave-active
+  animation: bounce-in .3s reverse
+
+@keyframes bounce-in
+  0%
+    transform: scale3d(1, 1, 1)
+  50%
+    transform: scale3d(1.3, 1.3, 1.3)
+  100%
+    transform: scale3d(1, 1, 1)

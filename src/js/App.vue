@@ -1,21 +1,25 @@
 <template>
-  <div id="app">
+  <div id="app" v-loading="loading" :element-loading-text="loadingText">
     <app-header></app-header>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-import AppHeader from './components/AppHeader.vue'
+import { mapGetters } from 'vuex'
+import AppHeader from '@/components/AppHeader.vue'
 
 export default {
+
   components: { AppHeader },
-  created () {
-    this.$store.dispatch('fetchMemos', {
-      count: 10,
-      type: 'public'
-    })
+
+  computed: {
+    ...mapGetters('loading', [
+      'loading',
+      'loadingText'
+    ])
   }
+
 }
 </script>
 

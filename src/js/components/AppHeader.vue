@@ -1,107 +1,135 @@
 <template>
-  <header class="appHeader navbar-fixed">
-    <nav>
-      <div class="nav-wrapper">
-        <h1 class="left"><router-link :to="{ name: 'index' }">Vue-memo</router-link></h1>
-        <ul class="right">
-          <li><input type="text" :value="currentUserName" @input="update" @keyup.enter="submit"></li>
-          <li v-if="!user.loggedIn" @click="signIn" class="googleBtnWrap">
-            <img class="normal" src="./../assets/btn_google_signin_light_normal_web@2x.png">
-            <img class="focus" src="./../assets/btn_google_signin_light_focus_web@2x.png">
-            <img class="pressed" src="./../assets/btn_google_signin_light_pressed_web@2x.png">
-          </li>
-          <li v-if="user.loggedIn"><a @click="signOut">signout</a></li>
-        </ul>
+  <div id="app-header" class="appHeader navbar-fixed">
+    <div class="admin-header-inner">
+
+      <router-link to="/" class="title-wrap">
+        <img src="~@/assets/logo.png" />
+        <h1>Vue-memo</h1>
+      </router-link>
+
+      <div class="icon-wrap">
+        <el-dropdown trigger="click" @command="handleCommand">
+          <i class="material-icons">settings</i>
+          <el-dropdown-menu slot="dropdown">
+            <template v-if="loggedIn">
+              <el-dropdown-item command="/settings/profile">Your profile</el-dropdown-item>
+              <el-dropdown-item command="/settings/email">Change email</el-dropdown-item>
+              <el-dropdown-item command="/settings/password">Change password</el-dropdown-item>
+              <el-dropdown-item divided key="logout"><div @click="signOut">Logout</div></el-dropdown-item>
+            </template>
+            <template v-else>
+              <el-dropdown-item command="/">TOP</el-dropdown-item>
+              <el-dropdown-item command="/login">Login</el-dropdown-item>
+              <el-dropdown-item command="/signup">Signup</el-dropdown-item>
+              <el-dropdown-item command="/forgot-password">Forgot password</el-dropdown-item>
+            </template>
+          </el-dropdown-menu>
+        </el-dropdown>
       </div>
-    </nav>
-  </header>
+
+    </div>
+    <div class="admin-header-spacer" />
+  </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import _ from 'lodash'
+// import { log } from '@/modules/debug'
 
 export default {
+
   name: 'AppHeader',
-  computed: mapGetters(['user', 'currentUserName']),
+
+  computed: {
+    ...mapGetters('account', [
+      'loggedIn',
+      'displayName'
+    ])
+  },
+
   data () {
     return {
       name: ''
     }
   },
+
   methods: {
-    ...mapActions(['signIn', 'signOut']),
-    update: _.debounce(function (e) {
-      this.submit(e)
-    }, 2000),
-    submit: _.throttle(function (e) {
-      const name = e.target.value
-      this.validate(name)
-        .then(() => {
-          return this.$store.dispatch('setUserInfo', {
-            key: 'name',
-            val: name
-          })
-        }).then(() => {
-          Materialize.toast('Updated Name', 4000, 'green')
-        }).catch(err => {
-          Materialize.toast('Error ' + err, 4000, 'red')
-        })
-    }, 800),
-    validate (text) {
-      return new Promise((resolve, reject) => {
-        if (text.length < 3) reject('too short')
-        else if (text.length > 15)reject('too long')
-        else resolve()
-      })
+
+    ...mapActions('account', [
+      'signIn',
+      'signOut'
+    ]),
+
+    handleCommand (command) {
+      if (!command) return
+      this.$router.push({ path: command })
     }
+
   }
+
 }
 </script>
 
 <style lang="stylus">
-.appHeader
-  nav
-    background-color: #4fc08d
-    .nav-wrapper
+@import '~stylusVar'
+
+#app-header
+  .admin-header-inner
+  .admin-header-spacer
+    height: 48px
+    width: 100%
+  .admin-header-inner
+    position: fixed
+    z-index: 10
+    background-color: $primary-color-dark
+    @extend .z-depth-6
+    height: 32px
+    padding: 8px 0
+    display: flex
+    align-items: center
+    .title-wrap
+      flex: 1 1 auto
+      display: flex
+      align-items: center
+      img
+        max-width: 100px
+        max-height: 32px
+        float: left
+        padding-left: 24px
       h1
-        margin: 0 0 0 2rem
-        padding: 0
-        height: 64px
-        line-height: 64px
-        font-size: 2rem
-        a
-          transition: ease .4s color
-          &:hover
-            color: #34495e
-      ul
-        margin: 0 1rem 0 0
+        font-size: 22px
+        line-height: 1
+        font-weight: 500
+        float: left
+        color: #fff
+        padding-left: 12px
+    .icon-wrap
+      flex: 1 1 auto
+      text-align: right
+      padding-right: 24px
+      font-size: 14px
+      display: flex
+      align-items: center
+      justify-content: flex-end
+      .el-dropdown
         display: flex
         align-items: center
-        li
-          margin: 0 1rem
-          input
-            margin: 0
-          &.googleBtnWrap
-            position: relative
-            line-height: 1
-            .normal
-            .focus
-            .pressed
-              width: 200px
-              cursor: pointer
-            .normal
-              position: relative
-            .focus
-            .pressed
-              position: absolute
-              opacity: 0
-              top: 0
-              left: 0
-              transition: ease .4s opacity
-            &:hover .focus
-              opacity: 1
-            &:active .pressed
-              opacity: 1
+        justify-content: flex-end
+        .material-icons
+          color: $font-color-white-trans
+          cursor: pointer
+          font-size: 24px
+          &:hover
+            color: $font-color-white
+
+  .admin-header-spacer
+    position: relative
+
+.el-dropdown-menu
+  .el-dropdown-menu__item
+    padding: 0 20px
+    color: $font-color-black-trans
+  .el-dropdown-menu__item--divided:before
+    margin: 0 -20px
 
 </style>

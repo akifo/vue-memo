@@ -1,0 +1,121 @@
+@import '../../config/settings.styl'
+
+html
+  font-size: 14px
+  font-weight: 400
+  line-height: 1.5
+  color: #1f1f1f
+  background: #fff
+
+body
+  /*-webkit-font-smoothing: subpixel-antialiased*/
+  -webkit-font-smoothing: antialiased
+  -moz-osx-font-smoothing: unset
+  margin: 0
+  padding: 0
+  font-family: "Lucida Grande", "Yu Gothic Medium", "游ゴシック Medium", YuGothic, "游ゴシック体", "ヒラギノ角ゴ Pro W3", "メイリオ", sans-serif
+  width: 100%
+  position: relative
+
+h1,h2,h3,h4,h5,h6,p,ul
+  margin: 0
+  padding: 0
+
+a
+  text-decoration: none
+
+a:hover
+  text-decoration: blink
+
+ul
+  list-style: none
+
+img
+  vertical-align:bottom
+
+*, :after, :before
+  box-sizing: content-box
+
+/* Material Icons
+   Font Awesome
+---------------------------------------------------------- */
+.material-icons
+.fa
+  font-size: 1em
+  margin-right: .5em
+  // transform: translateY(1px)
+
+/* github-markdown-css customize
+  https://github.com/sindresorhus/github-markdown-css
+---------------------------------------------------------- */
+.markdown-body
+  box-sizing: border-box
+  min-width: 200px
+  margin: 0 auto
+  padding: 45px 0
+  ul
+    list-style-type: disc
+
+/* Element Vue
+   http://element.eleme.io/#/en-US/component/form
+---------------------------------------------------------- */
+.el-form-item__error
+  position: relative
+
+/* .main-contents-header
+---------------------------------------------------------- */
+.main-contents-header
+  color: $font-color-white
+  background-color: $primary-color
+
+  .content-title-wrap
+    display: flex
+    align-items: flex-end
+    padding: 6px 56px 6px 24px
+    min-height: 36px
+    color: $font-color-white
+    font-size: 20px
+    font-weight: 400
+    line-height: 24px
+    text-overflow: ellipsis
+    overflow: hidden
+    white-space: nowrap
+    h1
+      font-size: 1em
+      line-height: 1
+      font-weight: inherit
+      margin-right: 2rem
+    .el-breadcrumb__item
+      .el-breadcrumb__item__inner
+        color: $font-color-white
+        font-size: 1em
+        line-height: 1
+        font-weight: inherit
+        &:hover
+          text-decoration: underline
+
+  .el-tabs
+    .el-tabs__header
+      margin: 0
+      border-bottom: 1px solid transparent
+
+      .el-tabs__item
+        color: $font-color-white-trans
+        font-size: 14px
+        text-align: center
+        height: auto
+        line-height: 24px
+        padding: 8px 24px
+        cursor: pointer
+        font-weight: 500
+        min-width: 90px
+
+        &:hover
+          color: $font-color-white
+        &.is-active
+          color: $font-color-white
+
+      .el-tabs__active-bar
+        background-color: $font-color-white
+        height: 2px
+
