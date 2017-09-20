@@ -2,5 +2,7 @@ dist
 .DS_Store
 node_modules
 .sass-cache
-settings.js
 *.log
+config/development.js
+config/production.js
+config/test.js

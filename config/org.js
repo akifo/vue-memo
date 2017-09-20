@@ -1,3 +1,7 @@
+const YAML = require('yamljs')
+
+const RESERVED_WORDS = YAML.load('./config/reserved-words.yml')
+
 const FIREBASE_CONFIG = {
   apiKey: "",
   authDomain: "",
@@ -7,6 +11,16 @@ const FIREBASE_CONFIG = {
   messagingSenderId: ""
 }
 
+const AUTH_CONFIG = {
+  email: true,
+  google: false,
+  facebook: false,
+  twitter: false,
+  github: false
+}
+
 module.exports = {
-  FIREBASE_CONFIG
+  RESERVED_WORDS,
+  FIREBASE_CONFIG,
+  AUTH_CONFIG
 }
