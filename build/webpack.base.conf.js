@@ -114,6 +114,13 @@ module.exports = {
       'process.env.NODE_ENV': JSON.stringify(NODE_ENV)
     }),
     new CopyWebpackPlugin([
+      {
+        from: resolve('static'),
+        to: 'static',
+        ignore: ['.*']
+      }
+    ]),
+    new CopyWebpackPlugin([
       { from: './index.html' }
     ])
   ]
