@@ -5,55 +5,62 @@
       "$uid": {
         ".write": "auth !== null && auth.uid === $uid",
         "name": {
-          ".validate": "newData.isString() && 2 <= newData.val().length && newData.val().length <= 100"
-        }
-      }
-    },
-    "memos": {
-      "$uid": {
-        ".write": "auth !== null && auth.uid === $uid",
-        "$mid": {
-          "title": {
-            ".validate": "newData.isString() && newData.val().length <= 200"
-          },
-          "body": {
-            ".validate": "newData.isString() && newData.val().length <= 4000"
-          },
-          "created": {
-            ".validate": "newData.isNumber() && newData.val() < now + 5000"
-          },
-          "modified": {
-            ".validate": "newData.isNumber() && newData.val() < now + 5000"
+          ".validate": "newData.isString() && 3 <= newData.val().length && newData.val().length <= 30"
+        },
+        "memos": {
+          "$mid": {
+            ".validate": "newData.isBoolean()"
           }
         },
-        ".indexOn": ["created"]
-      }
+        "stars": {
+          "$mid": {
+            ".write": "auth !== null && root.child('memos/' + $mid).child('publicWritePermissionData/stars').hasChild($uid) || auth.uid === $uid",
+            "created": {
+              ".validate": "newData.isNumber() && newData.val() < now + 5000 && newData.val() > 1480885998423"
+            }
+          }
+        }
+      },
+      ".indexOn": ["name"]
     },
-    "publicMemos": {
+    "memos": {
       "$mid": {
-        ".write": "root.child('memos/' + auth.uid ).hasChild($mid)",
+        ".write": "auth !== null && auth.uid === newData.child('authorID').val() || data.child('authorID').val() === auth.uid",
+        "memoName": {
+          ".validate": "newData.isString() && newData.val().length >= 3 && newData.val().length <= 30"
+        },
         "title": {
-          ".validate": "newData.isString() && newData.val().length <= 200"
+          ".validate": "newData.isString() && newData.val().length >= 5 && newData.val().length <= 120"
         },
         "body": {
-          ".validate": "newData.isString() && newData.val().length <= 4000"
+          ".validate": "newData.isString() && newData.val().length >= 10 && newData.val().length <= 3000"
+        },
+        "authorID": {
+          ".validate": "newData.isString()"
         },
         "created": {
           ".validate": "newData.isNumber() && newData.val() < now + 5000"
         },
         "modified": {
-          ".validate": "newData.isNumber() && newData.val() < now + 5000"
+          ".validate": "newData.isNumber() && newData.val() < now + 5000 && newData.val() > 1480885998423"
         },
-        "author": {
-          "uid": {
-            ".validate": "newData.val() == auth.uid"
+        "authorID_memoName": {
+          ".validate": "newData.isString() && newData.val() === newData.parent().child('authorID').val() + '_' + newData.parent().child('memoName').val()"
+        },
+        "publicWritePermissionData": {
+          ".write": "auth !== null && newData.child('stars').hasChild(auth.uid) || data.child('stars').hasChild(auth.uid)",
+          "starCount": {
+            ".validate": "newData.isNumber() && newData.val() >= 0"
           },
-          "name": {
-            ".validate": "newData.isString() && 2 <= newData.val().length && newData.val().length <= 100"
-          }
+          "stars": {
+            "$uid": {
+              ".write": "auth !== null && auth.uid === $uid",
+              ".validate": "newData.isBoolean()"
+            }
+          },
         }
       },
-      ".indexOn": ["created"]
+      ".indexOn": ["created", "memoName", "authorID", "authorID_memoName", "starCount"]
     }
   }
 }
