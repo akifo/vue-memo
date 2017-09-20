@@ -1,0 +1,40 @@
+// This is just firebase DB model.
+// This file is irrelevant to the program.
+{
+  "users": {
+    "$uid": {
+      "name": "tanaka",
+      "memos": {
+        "$mid": true,
+        "-Kr22TiTi4ktLiDrE9FM": true,
+        "-Kr5EWkDqs_d63gutnKv": true
+      },
+      "stars": {
+        "-Kr22TiTi4ktLiDrE9FM": {
+          "created": 1502741787796
+        },
+        "-Kr5EWkDqs_d63gutnKv": {
+          "created": 1502741787796
+        }
+      }
+    }
+  },
+  "memos": {
+    "$mid": {
+      "memoName": "awesome-orange",
+      "title": "aaaa",
+      "body": "bbbb",
+      "authorID": "$uid",
+      "created": 1502741787796,
+      "modified": 1502741787796,
+      "authorID_memoName": "$uid_awesome-orange",
+      "publicWritePermissionData": {
+        "starCount": 2,
+        "stars": {
+          "CLIPLIrf1occ83qNAB5jzE6ukAC2": true,
+          "sjhzQ5Jke5QsLH1vaDjPrPl5BSs2": true
+        }
+      }
+    }
+  }
+}
